@@ -1,0 +1,50 @@
+﻿<Window x:Class="ExamenJanvier2023.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ExamenJanvier2023"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Window.Resources>
+        <DataTemplate x:Key="listTemplate">
+            <StackPanel Margin="0 5 0 5">
+                <Label Content="{Binding ProductId}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <Label Content="{Binding ProductName}" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+            </StackPanel>
+        </DataTemplate>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <ComboBox Name="Product"  Margin="84,28,84,310" 
+                          ItemsSource="{Binding ProductList}"                          
+                          SelectedItem="{Binding SelectedProduct}"
+                          ItemTemplate="{StaticResource listTemplate }"/>
+
+        <Label Content="ProductID:" Margin="84,156,231,243" />
+        <Label Content="{Binding SelectedProduct.ProductId, UpdateSourceTrigger=PropertyChanged}" Margin="174,153,84,246" />
+        <Label Content="ProductName:" Margin="84,191,231,213" />
+        <Label Content="{Binding SelectedProduct.ProductName, UpdateSourceTrigger=PropertyChanged}" Margin="174,191,84,213" />
+        <Label Content="Categorie:" Margin="84,226,231,178" />
+        <Label Content="{Binding SelectedProduct.CategorieName, UpdateSourceTrigger=PropertyChanged}" Margin="174,226,84,178" />
+        <Label Content="Fournisseur:" Margin="84,256,231,148" />
+        <Label Content="{Binding SelectedProduct.SupplierName, UpdateSourceTrigger=PropertyChanged}" Margin="174,256,84,148" />
+
+        <Button Command="{Binding UpdateCommand}" Content="Abandonner le produit sélectionné" Margin="71,321,84,69"/>
+
+        <StackPanel Grid.Column="1" Margin="10">
+            <Label Content="Nombre de Produits par Pays ayant été vendu au moins une fois" 
+                   HorizontalAlignment="Center" FontWeight="Bold" Margin="0,0,0,10"/>
+            <DataGrid ItemsSource="{Binding CountrySalesList}" AutoGenerateColumns="False" Width="350">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Country" Binding="{Binding Country}" Width="*" />
+                    <DataGridTextColumn Header="Nb" Binding="{Binding Nb}" Width="*" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+
+    </Grid>
+</Window>
